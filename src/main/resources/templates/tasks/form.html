@@ -8,26 +8,180 @@
 
     <style>
         body {
-            background: #1e1e1e;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
             color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-header h2 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
         }
 
         /* Card container */
         .form-card {
-            background: #2a2a2a;
-            padding: 30px;
-            border-radius: 12px;
-            width: 100%;
-            max-width: 550px;
-            margin: auto;
-            box-shadow: 0 0 25px rgba(0, 0, 0, 0.35);
+            background: linear-gradient(145deg, #1e2128 0%, #181b20 100%);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Form labels */
+        .form-label {
+            color: #c8c8c8;
+            font-weight: 500;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        /* Form inputs */
+        .form-control, .form-select {
+            background: #0d0f14;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            background: #13151a;
+            border-color: #667eea;
+            color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+            outline: none;
+        }
+
+        .form-control::placeholder {
+            color: #555;
+        }
+
+        .form-select option {
+            background: #1e2128;
+            color: #ffffff;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Checkbox styling */
+        .form-check {
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .form-check-input {
+            background-color: #0d0f14;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .form-check-input:checked {
+            background-color: #38ef7d;
+            border-color: #38ef7d;
+        }
+
+        .form-check-input:focus {
+            box-shadow: 0 0 0 3px rgba(56, 239, 125, 0.15);
+            border-color: #38ef7d;
+        }
+
+        .form-check-label {
+            color: #c8c8c8;
+            font-weight: 500;
+            margin-left: 8px;
+            cursor: pointer;
+        }
+
+        /* Error messages */
+        .text-danger {
+            font-size: 0.85rem;
+            margin-top: 6px;
+            display: block;
+            color: #ee5a6f !important;
+        }
+
+        /* Buttons */
+        .btn-group-form {
+            display: flex;
+            gap: 16px;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 32px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            box-shadow: 0 4px 15px rgba(56, 239, 125, 0.3);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(56, 239, 125, 0.4);
         }
 
         /* Mobile-first */
         @media (max-width: 576px) {
             .form-card {
-                padding: 20px;
-                border-radius: 10px;
+                padding: 30px 20px;
+                border-radius: 16px;
+            }
+
+            .form-header h2 {
+                font-size: 2rem;
+            }
+
+            .btn-group-form {
+                flex-direction: column;
+                gap: 12px;
             }
 
             .btn {
@@ -37,12 +191,13 @@
     </style>
 </head>
 
-<body class="bg-dark text-light">
+<body>
 
-<div class="container py-4">
+<div class="form-container">
 
-    <h2 class="text-center fw-bold mb-4"
-        th:text="${task.id} == null ? 'Create Task' : 'Edit Task'"></h2>
+    <div class="form-header">
+        <h2 th:text="${task.id} == null ? 'Create Task' : 'Edit Task'"></h2>
+    </div>
 
     <div class="form-card">
 
@@ -53,16 +208,24 @@
             <!-- Title -->
             <div class="mb-3">
                 <label class="form-label">Title</label>
-                <input type="text" th:field="*{title}" class="form-control">
-                <small class="text-danger" th:if="${#fields.hasErrors('title')}"
+                <input type="text"
+                       th:field="*{title}"
+                       class="form-control"
+                       placeholder="Enter task title">
+                <small class="text-danger"
+                       th:if="${#fields.hasErrors('title')}"
                        th:errors="*{title}"></small>
             </div>
 
             <!-- Description -->
             <div class="mb-3">
                 <label class="form-label">Description</label>
-                <textarea th:field="*{description}" class="form-control" rows="3"></textarea>
-                <small class="text-danger" th:if="${#fields.hasErrors('description')}"
+                <textarea th:field="*{description}"
+                          class="form-control"
+                          rows="4"
+                          placeholder="Enter task description (optional)"></textarea>
+                <small class="text-danger"
+                       th:if="${#fields.hasErrors('description')}"
                        th:errors="*{description}"></small>
             </div>
 
@@ -91,23 +254,28 @@
             <!-- Due Date -->
             <div class="mb-3">
                 <label class="form-label">Due Date</label>
-                <input type="date" th:field="*{dueDate}" class="form-control">
+                <input type="date"
+                       th:field="*{dueDate}"
+                       class="form-control">
             </div>
 
             <!-- Completed Checkbox (Edit only) -->
             <div class="form-check mb-3" th:if="${task.id != null}">
-                <input class="form-check-input" type="checkbox" th:field="*{completed}" id="completedCheck">
-                <label class="form-check-label" for="completedCheck">Completed</label>
+                <input class="form-check-input"
+                       type="checkbox"
+                       th:field="*{completed}"
+                       id="completedCheck">
+                <label class="form-check-label" for="completedCheck">
+                    Mark as Completed
+                </label>
             </div>
 
             <!-- Buttons -->
-            <div class="d-flex gap-2 justify-content-between">
-
+            <div class="btn-group-form">
                 <a th:href="@{/tasks}"
-                   class="btn btn-secondary px-4">Cancel</a>
+                   class="btn btn-secondary">Cancel</a>
 
-                <button class="btn btn-success px-4" type="submit">Save</button>
-
+                <button class="btn btn-success" type="submit">Save Task</button>
             </div>
 
         </form>

@@ -5,60 +5,100 @@
 
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <!-- Bootstrap Icons for search icon -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"/>
 
     <style>
         body {
-            background: linear-gradient(135deg, #1a1b1e 0%, #2d1b3d 100%);
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
             color: #ffffff;
             min-height: 100vh;
         }
 
         .task-card {
-            background: linear-gradient(145deg, #2b2d31 0%, #232529 100%);
+            background: linear-gradient(145deg, #1e2128 0%, #181b20 100%);
             border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 28px;
+            margin-bottom: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
         }
 
         .task-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.2);
-            border-color: rgba(138, 43, 226, 0.3);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.15);
+            border-color: rgba(102, 126, 234, 0.2);
+        }
+
+        /* Main row spacing */
+        .task-main-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+            margin-bottom: 22px;
+        }
+
+        .task-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .field-label {
+            font-size: 0.72rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 600;
+        }
+
+        .task-field.title-field {
+            flex: 1.4;
+            min-width: 150px;
         }
 
         .task-title {
-            font-size: 1.1rem;
+            font-size: 1.25rem;
             font-weight: 600;
             color: #ffffff;
-            letter-spacing: 0.3px;
         }
 
-        .task-description {
-            font-size: 0.9rem;
-            color: #cfcfcf;
-            margin-top: 8px;
-            line-height: 1.5;
+        .task-field.priority-field,
+        .task-field.category-field,
+        .task-field.date-field,
+        .task-field.status-field {
+            flex: 1;
+            min-width: 120px;
         }
 
-        .task-date {
-            font-size: 0.85rem;
-            color: #a0a0a0;
-            font-weight: 500;
+        /* Actions field */
+        .task-field.actions-field {
+            flex: 2;
+            min-width: 240px;
         }
 
-        .task-status {
-            font-weight: 600;
-            font-size: 0.9rem;
+        .task-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            scrollbar-width: none;
+        }
+
+        .task-actions::-webkit-scrollbar {
+            display: none;
         }
 
         .btn-sm {
-            padding: 6px 14px;
+            padding: 6px 16px;
             font-size: 0.8rem;
             border-radius: 8px;
             font-weight: 500;
+            white-space: nowrap;
             transition: all 0.2s ease;
         }
 
@@ -67,45 +107,105 @@
         }
 
         .badge {
-            padding: 6px 12px;
+            padding: 6px 16px;
             font-weight: 500;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 0.75rem;
-            text-transform: uppercase;
             letter-spacing: 0.5px;
+            white-space: nowrap;
         }
 
-        .bg-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        .badge-high {
+            background: linear-gradient(135deg, #ee5a6f 0%, #f093fb 100%);
+            color: #fff;
         }
 
-        .bg-info {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
-            color: #000 !important;
+        .badge-medium {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .badge-low {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: #fff;
+        }
+
+        .badge-category {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: #000;
+        }
+
+        .task-status {
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 8px 18px;
+            border-radius: 8px;
+            display: inline-block;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .status-completed {
+            background: rgba(56, 239, 125, 0.15);
+            color: #38ef7d;
+            border: 1px solid rgba(56, 239, 125, 0.3);
+        }
+
+        .status-pending {
+            background: rgba(254, 202, 87, 0.15);
+            color: #feca57;
+            border: 1px solid rgba(254, 202, 87, 0.3);
+        }
+
+        .task-description {
+            font-size: 0.95rem;
+            color: #a8a8a8;
+            line-height: 1.6;
+            padding-top: 16px;
+            margin-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        /* SEARCH BAR */
+        .search-wrapper {
+            position: relative;
+        }
+
+        .search-wrapper i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: #9aa0a6;
+            pointer-events: none;
+        }
+
+        .search-wrapper .form-control {
+            padding-left: 42px;
         }
 
         .form-control, .form-select {
-            background: #2b2d31;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #1e2128;
+            border: 1px solid rgba(255, 255, 255, 0.08);
             color: #ffffff;
             border-radius: 10px;
             padding: 10px 14px;
-            transition: all 0.3s ease;
         }
 
         .form-control:focus, .form-select:focus {
-            background: #323439;
+            background: #252930;
             border-color: #667eea;
             color: #ffffff;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
         }
 
         .form-control::placeholder {
-            color: #888;
+            color: #9aa0a6;
         }
 
         .form-select option {
-            background: #2b2d31;
+            background: #1e2128;
             color: #ffffff;
         }
 
@@ -125,7 +225,7 @@
         }
 
         .btn-outline-light {
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.15);
             color: #ffffff;
             border-radius: 10px;
             font-weight: 600;
@@ -133,7 +233,7 @@
         }
 
         .btn-outline-light:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
             border-color: #ffffff;
             color: #ffffff;
         }
@@ -168,21 +268,11 @@
             color: #fff;
         }
 
+        /* TaskFlow title in plain white */
         h2 {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ffffff;
             font-weight: 700;
             letter-spacing: 1px;
-        }
-
-        .text-success {
-            color: #38ef7d !important;
-        }
-
-        .text-warning {
-            color: #feca57 !important;
         }
 
         .container {
@@ -191,26 +281,12 @@
 
         /* Mobile-first layout */
         @media (max-width: 576px) {
-            .task-row {
-                flex-direction: column;
-                align-items: flex-start !important;
-                gap: 12px;
+            .task-main-row {
+                gap: 22px;
             }
 
-            .task-actions {
-                width: 100%;
-                display: flex;
-                justify-content: flex-start;
-                gap: 10px;
-                flex-wrap: wrap;
-            }
-
-            .task-meta {
-                width: 100%;
-                display: flex;
-                justify-content: space-between;
-                padding-top: 8px;
-                border-top: 1px solid rgba(255, 255, 255, 0.08);
+            .task-field {
+                flex: 1;
             }
         }
     </style>
@@ -229,9 +305,16 @@
     <!-- Filters -->
     <form class="row g-2 mb-4" th:action="@{/tasks}" method="get">
 
+        <!-- Search with icon -->
         <div class="col-12 col-md-4">
-            <input type="text" name="q" class="form-control" placeholder="Search by title"
-                   th:value="${query}">
+            <div class="search-wrapper">
+                <i class="bi bi-search"></i>
+                <input type="text"
+                       name="q"
+                       class="form-control"
+                       placeholder="Search by title or description..."
+                       th:value="${query}">
+            </div>
         </div>
 
         <div class="col-12 col-md-3">
@@ -265,47 +348,67 @@
     <!-- Task Cards -->
     <div th:each="task : ${tasks}" class="task-card">
 
-        <div class="d-flex justify-content-between align-items-center task-row">
+        <div class="task-main-row">
 
-            <!-- Left -->
-            <div>
+            <!-- Title -->
+            <div class="task-field title-field">
+                <div class="field-label">Title</div>
                 <div class="task-title" th:text="${task.title}"></div>
-
-                <div class="d-flex gap-2 mt-2">
-                    <span class="badge bg-primary" th:text="${task.priority}"></span>
-                    <span class="badge bg-info text-dark" th:text="${task.category}"></span>
-                </div>
-
-                <div class="task-description"
-                     th:if="${task.description != null and !task.description.isBlank()}"
-                     th:text="${task.description}">
-                </div>
             </div>
 
-            <!-- Center (Date & Status) -->
-            <div class="text-center task-meta">
+            <!-- Priority -->
+            <div class="task-field priority-field">
+                <div class="field-label">Priority</div>
+                <span class="badge"
+                      th:classappend="${task.priority == T(com.taskflow.model.Priority).HIGH ? 'badge-high' :
+                                      (task.priority == T(com.taskflow.model.Priority).MEDIUM ? 'badge-medium' : 'badge-low')}"
+                      th:text="${task.priority}"></span>
+            </div>
+
+            <!-- Category -->
+            <div class="task-field category-field">
+                <div class="field-label">Category</div>
+                <span class="badge badge-category" th:text="${task.category}"></span>
+            </div>
+
+            <!-- Due Date -->
+            <div class="task-field date-field">
+                <div class="field-label">Due Date</div>
                 <div class="task-date"
                      th:text="${task.dueDate != null ? task.dueDate : 'No date'}"></div>
+            </div>
 
-                <div class="task-status"
-                     th:text="${task.completed ? 'Completed' : 'Pending'}"
-                     th:classappend="${task.completed ? ' text-success' : ' text-warning'}">
+            <!-- Status -->
+            <div class="task-field status-field">
+                <div class="field-label">Status</div>
+                <span class="task-status"
+                      th:classappend="${task.completed ? 'status-completed' : 'status-pending'}"
+                      th:text="${task.completed ? 'Completed' : 'Pending'}"></span>
+            </div>
+
+            <!-- Actions -->
+            <div class="task-field actions-field">
+                <div class="field-label">Actions</div>
+                <div class="task-actions">
+                    <a th:href="@{'/tasks/' + ${task.id} + '/toggle'}"
+                       class="btn btn-sm btn-outline-info">Toggle</a>
+
+                    <a th:href="@{'/tasks/' + ${task.id} + '/edit'}"
+                       class="btn btn-sm btn-outline-warning">Edit</a>
+
+                    <a th:href="@{'/tasks/' + ${task.id} + '/delete'}"
+                       onclick="return confirm('Delete this task?');"
+                       class="btn btn-sm btn-outline-danger">Delete</a>
                 </div>
             </div>
 
-            <!-- Right (Actions) -->
-            <div class="task-actions">
-                <a th:href="@{'/tasks/' + ${task.id} + '/toggle'}"
-                   class="btn btn-sm btn-outline-info">Toggle</a>
+        </div>
 
-                <a th:href="@{'/tasks/' + ${task.id} + '/edit'}"
-                   class="btn btn-sm btn-outline-warning">Edit</a>
-
-                <a th:href="@{'/tasks/' + ${task.id} + '/delete'}"
-                   onclick="return confirm('Delete this task?');"
-                   class="btn btn-sm btn-outline-danger">Delete</a>
-            </div>
-
+        <!-- Description -->
+        <div class="task-description"
+             th:if="${task.description != null && !task.description.isBlank()}">
+            <div class="field-label" style="margin-bottom: 6px;">Description</div>
+            <div th:text="${task.description}"></div>
         </div>
 
     </div>
