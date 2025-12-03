@@ -1,0 +1,45 @@
+/* Default Dark Mode */
+body {
+    background-color: #121212;
+    color: #f5f5f5;
+}
+
+/* Light Mode */
+body.light-mode {
+    background-color: #ffffff;
+    color: #121212;
+}
+
+/* Card, table adjustments */
+.table-dark.light-mode {
+    background-color: #ffffff !important;
+    color: #000 !important;
+}
+
+.light-mode .table-dark td,
+.light-mode .table-dark th {
+    color: #000 !important;
+}
+
+/* Floating toggle button */
+.theme-toggle {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: #0d6efd;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+    z-index: 999;
+}
+
+.theme-toggle:hover {
+    opacity: 0.85;
+}

@@ -1,0 +1,130 @@
+/* ------------------------------
+   GLOBAL STYLES
+--------------------------------*/
+body {
+    background-color: #1c1f24;
+    color: #f1f1f1;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 950px;
+    margin: auto;
+}
+
+h1 {
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* ------------------------------
+   FILTER BAR
+--------------------------------*/
+.filter-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.filter-row input,
+.filter-row select {
+    background-color: #2b2f33;
+    border: 1px solid #444;
+    color: #fff;
+}
+
+.filter-row input::placeholder {
+    color: #bbb;
+}
+
+/* ------------------------------
+   TASK CARD
+--------------------------------*/
+.task-card {
+    background-color: #2b2f33;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 18px;
+    box-shadow: 0 0 0 1px #333, 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.task-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 0 1px #505050, 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* ------------------------------
+   BADGES
+--------------------------------*/
+.badge-priority {
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 8px;
+}
+
+.badge-category {
+    background-color: #0dcaf0;
+    color: #000;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 8px;
+}
+
+.badge-high { background-color: #dc3545; }
+.badge-medium { background-color: #0d6efd; }
+.badge-low { background-color: #198754; }
+
+/* ------------------------------
+   BUTTONS
+--------------------------------*/
+.btn-custom {
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 6px;
+    margin-right: 6px;
+}
+
+.btn-edit {
+    background-color: #ffc107;
+    border: none;
+    color: #000;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    border: none;
+}
+
+.btn-toggle {
+    background-color: #0d6efd;
+    border: none;
+}
+
+/* ------------------------------
+   STATUS TEXT
+--------------------------------*/
+.text-pending {
+    color: #ffc107;
+    font-weight: 500;
+}
+
+.text-complete {
+    color: #4caf50;
+    font-weight: 500;
+}
+
+.overdue {
+    border-left: 4px solid #dc3545;
+}
+
+/* ------------------------------
+   MOBILE
+--------------------------------*/
+@media (max-width: 768px) {
+    .task-card {
+        padding: 16px;
+    }
+}
